@@ -2,19 +2,25 @@
     <div class="container mx-auto h-full flex justify-center items-center">
         <div class="shadow w-[400px] h-fit p-5">
             <h1 class="text-center text-[20px] font-semibold">Đăng nhập hệ thống</h1>
-            <form action="">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
                 <label for="" class="mt-8 block text-[14px] font-medium">Email</label>
-                <input type="text" class="block w-full border border-[#172b4d] p-2 mt-2 focus:border-[#1370fb] rounded"
+                <input formControlName="email" type=" text"
+                    class="block w-full border border-[#172b4d] p-2 mt-2 focus:border-[#1370fb] rounded"
                     placeholder="Nhập email của bạn">
-                <small class="text-red-600">Chưa nhập tài khoản</small>
+                <small class="text-red-600" *ngIf="form.get('email')?.getError && form.get('email')?.touched">Chưa nhập
+                    email</small>
                 <label for="" class="mt-4 block text-[14px] font-medium">Mật khẩu</label>
-                <input type="text" class="block w-full border border-[#172b4d] p-2 mt-2 focus:border-[#1370fb] rounded"
+                <input formControlName="password" type="text"
+                    class="block w-full border border-[#172b4d] p-2 mt-2 focus:border-[#1370fb] rounded"
                     placeholder="Nhập mật khẩu của bạn">
-                <small class="text-red-600">Chưa nhập mật khẩu</small>
+                <small class="text-red-600" *ngIf="form.get('password')?.getError && form.get('password')?.touched">Chưa
+                    nhập
+                    mật khẩu</small>
                 <span class="block w-full text-[14px] mt-3">Bạn chưa có tài khoản? <a routerLink="/register"
                         class="font-medium text-blue-600">Đăng ký
                         ngay</a></span>
-                <button class="block w-full text-white rounded font-medium text-center p-2 mt-3 bg-[#1370fb]">Đăng
+                <button type="submit"
+                    class="block w-full text-white rounded font-medium text-center p-2 mt-3 bg-[#1370fb]">Đăng
                     nhập</button>
             </form>
         </div>
