@@ -45,8 +45,11 @@ export class RegisterComponent {
       },
       error: err => {
         this.loading = false
-        this.message = err.message
-        console.log(err)
+        if (err.error && err.error.Message) {
+          this.message = err.error.Message;
+        } else {
+          this.message = "Có lỗi xảy ra, vui lòng thử lại!";
+        }
       }
     })
   }

@@ -11,15 +11,14 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   form: FormGroup
   loading = false
-  massage = ''
-
-
+  message = ''
   constructor(private fb: FormBuilder, private authService: AuthApiService, private router: Router) {
     this.form = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
     })
   }
+
   onSubmit() {
     this.loading = true
     if (this.form.invalid) {
@@ -28,9 +27,14 @@ export class LoginComponent {
     }
     const { email, password } = this.form.value
     this.authService.login(email, password).subscribe({
-      next: () => this.router.navigate(['./']),
+      next: () => this.router.navigate(['/']),
       error: err => {
-        this.massage = err.massage
+        console.log(err)
+        if (err.error && err.error.Message) {
+          this.message = err.error.Message;
+        } else {
+          this.message = "Có lỗi xảy ra, vui lòng thử lại!";
+        }
         this.loading = false
       }
     })
