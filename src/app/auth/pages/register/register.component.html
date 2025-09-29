@@ -1,62 +1,50 @@
-<div class="h-screen relative">
-    <div class="container mx-auto h-full flex justify-center items-center">
-        <div class="shadow w-[400px] h-fit p-5">
-            <h1 class="text-center text-[20px] font-semibold">Đăng ký tài khoản</h1>
-            <form [formGroup]="form" (ngSubmit)="onSubmit()">
-                <label for="" class="mt-5 block text-[14px] font-medium">Họ và tên</label>
-                <input formControlName="fullName" type="text"
-                    class="block w-full border border-[#172b4d] p-2 mt-2 focus:border-[#1370fb] rounded"
-                    placeholder="Nhập họ và tên của bạn">
-                <small class="text-red-600"
-                    *ngIf="form.get('fullName')?.getError('required') && form.get('fullName')?.touched">Chưa nhập họ
-                    và
-                    tên</small>
-                <label for="" class="mt-4 block text-[14px] font-medium">Số điện thoại</label>
-                <input formControlName="phone" type="text"
-                    class="block w-full border border-[#172b4d] p-2 mt-2 focus:border-[#1370fb] rounded"
-                    placeholder="Nhập số điện thoại">
-                <small class="text-red-600"
-                    *ngIf="form.get('phone')?.getError('required') && form.get('phone')?.touched">số điện
-                    thoại</small>
-                <label for="" class="mt-4 block text-[14px] font-medium">Email</label>
-                <input formControlName="email" type="text"
-                    class="block w-full border border-[#172b4d] p-2 mt-2 focus:border-[#1370fb] rounded"
-                    placeholder="Nhập email của bạn">
-                <small class="text-red-600"
-                    *ngIf="form.get('email')?.getError('required') && form.get('email')?.touched">Chưa nhập
-                    email</small>
-                <label for="" class="mt-4 block text-[14px] font-medium">Mật khẩu</label>
-                <input formControlName="password" type="password"
-                    class="block w-full border border-[#172b4d] p-2 mt-2 focus:border-[#1370fb] rounded"
-                    placeholder="Nhập mật khẩu của bạn">
-                <small class="text-red-600"
-                    *ngIf="form.get('password')?.getError('required') && form.get('password')?.touched">
-                    Chưa nhập mật khẩu
-                </small>
-                <label for="" class="mt-4 block text-[14px] font-medium">Mật khẩu</label>
-                <input formControlName="confirmPassword" type="password"
-                    class="block w-full border border-[#172b4d] p-2 mt-2 focus:border-[#1370fb] rounded"
-                    placeholder="Nhập mật khẩu của bạn">
-                <small class="text-red-600"
-                    *ngIf="form.get('confirmPassword')?.getError('required') && form.get('confirmPassword')?.touched">
-                    Chưa nhập lại mật khẩu
-                </small>
-                <small class="text-red-600" *ngIf="form.errors?.['mismatch'] && form.get('confirmPassword')?.touched">
-                    Chưa nhập lại mật khẩu
-                </small>
-                <small class="text-red-600" *ngIf="message">
-                    {{message}}
-                </small>
-                <span class="block w-full text-[14px] mt-3">Bạn đã có tài khoản? <a routerLink="/login"
-                        class="font-medium text-blue-600">Đăng nhập
-                        ngay</a></span>
-                <button [disabled]="form.invalid" [ngClass]="{'bg-blue-300' : form.invalid , 'bg-blue-500': form.valid}"
-                    type="submit"
-                    class="block w-full text-white rounded font-medium text-center p-2 mt-3 bg-[#1370fb]">Đăng
-                    ký</button>
-            </form>
-        </div>
-    </div>
-    <img src="../../../assets/svg/trello-right.e6e102c7.svg" class="absolute w-[300px] bottom-0 right-0" alt="right">
-    <img src="../../../assets/svg/trello-left.4f52d13c.svg" class="absolute w-[300px] bottom-0 left-0" alt="left">
-</div>
+<h1 class="text-center text-[20px] font-semibold">Đăng ký tài khoản</h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <label for="" class="mt-5 block text-[14px] font-medium">Họ và tên</label>
+    <input formControlName="fullName" type="text"
+        class="block w-full border border-[#172b4d] p-2 mt-2 focus:border-[#1370fb] rounded"
+        placeholder="Nhập họ và tên của bạn">
+    <small class="text-red-600" *ngIf="form.get('fullName')?.getError('required') && form.get('fullName')?.touched">Chưa
+        nhập họ
+        và
+        tên</small>
+    <label for="" class="mt-4 block text-[14px] font-medium">Số điện thoại</label>
+    <input formControlName="phone" type="text"
+        class="block w-full border border-[#172b4d] p-2 mt-2 focus:border-[#1370fb] rounded"
+        placeholder="Nhập số điện thoại">
+    <small class="text-red-600" *ngIf="form.get('phone')?.getError('required') && form.get('phone')?.touched">số điện
+        thoại</small>
+    <label for="" class="mt-4 block text-[14px] font-medium">Email</label>
+    <input formControlName="email" type="text"
+        class="block w-full border border-[#172b4d] p-2 mt-2 focus:border-[#1370fb] rounded"
+        placeholder="Nhập email của bạn">
+    <small class="text-red-600" *ngIf="form.get('email')?.getError('required') && form.get('email')?.touched">Chưa nhập
+        email</small>
+    <label for="" class="mt-4 block text-[14px] font-medium">Mật khẩu</label>
+    <input formControlName="password" type="password"
+        class="block w-full border border-[#172b4d] p-2 mt-2 focus:border-[#1370fb] rounded"
+        placeholder="Nhập mật khẩu của bạn">
+    <small class="text-red-600" *ngIf="form.get('password')?.getError('required') && form.get('password')?.touched">
+        Chưa nhập mật khẩu
+    </small>
+    <label for="" class="mt-4 block text-[14px] font-medium">Mật khẩu</label>
+    <input formControlName="confirmPassword" type="password"
+        class="block w-full border border-[#172b4d] p-2 mt-2 focus:border-[#1370fb] rounded"
+        placeholder="Nhập mật khẩu của bạn">
+    <small class="text-red-600"
+        *ngIf="form.get('confirmPassword')?.getError('required') && form.get('confirmPassword')?.touched">
+        Chưa nhập lại mật khẩu
+    </small>
+    <small class="text-red-600" *ngIf="form.errors?.['mismatch'] && form.get('confirmPassword')?.touched">
+        Chưa nhập lại mật khẩu
+    </small>
+    <small class="text-red-600" *ngIf="message">
+        {{message}}
+    </small>
+    <span class="block w-full text-[14px] mt-3">Bạn đã có tài khoản? <a routerLink="/auth/login"
+            class="font-medium text-blue-600">Đăng nhập
+            ngay</a></span>
+    <button [disabled]="form.invalid" [ngClass]="{'bg-blue-300' : form.invalid , 'bg-blue-500': form.valid}"
+        type="submit" class="block w-full text-white rounded font-medium text-center p-2 mt-3 bg-[#1370fb]">Đăng
+        ký</button>
+</form>

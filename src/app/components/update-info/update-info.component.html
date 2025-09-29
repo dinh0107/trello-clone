@@ -1,0 +1,21 @@
+<div class="flex justify-center flex-col mx-auto w-[400px]">
+    <h1 class="text-[20px]">Hồ sơ và hiển thị</h1>
+    <form [formGroup]="form">
+        <label class="block mt-4">
+            <span class="sr-only">Chọn ảnh</span>
+            <input type="file" accept="image/*" class="block w-full text-sm text-gray-500
+                file:mr-4 file:py-2 file:px-4
+                file:rounded-full file:border-0
+                file:text-sm file:font-semibold
+                file:bg-blue-50 file:text-blue-700
+                hover:file:bg-blue-100">
+        </label>
+        <input type="text" placeholder="" [value]="info?.FullName" formControlName="FullName"
+            class="block w-full border border-[#172b4d] p-2 mt-3 focus:border-[#1370fb] rounded text-[#000]">
+        <input type="date" placeholder="" [value]="info?.birthDate ? (info?.birthDate | date: 'yyyy-MM-dd') : null"
+            formControlName="birthDate" placeholder="Nhập ngày tháng năm sinh"
+            class=" block w-full border border-[#172b4d] p-2 mt-3 focus:border-[#1370fb] rounded text-[#000]">
+        <button type="submit" class="block w-full text-white rounded font-medium text-center p-2 mt-3 bg-[#1370fb]">Cập
+            nhật</button>
+    </form>
+</div>

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, of, tap } from 'rxjs';
 import { User } from 'src/app/core/user';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { User } from 'src/app/core/user';
 })
 export class AuthApiService {
 
-  url = 'https://trello-api.chunmedia.vn/api/'
+  url = 'https://api.chunmedia.vn/api/'
 
   private authState = new BehaviorSubject<boolean | null>(null)
   private currentUserSubject = new BehaviorSubject<any | null>(null)
@@ -18,8 +18,10 @@ export class AuthApiService {
 
   checkAuth(): Observable<boolean> {
     if (this.authState.value !== null) {
+      console.log('checkAuth cache:', this.authState.value);
       return of(this.authState.value);
     }
+
     return this.http.get<{ isAuthenticated: boolean }>(
       `${this.url}auth/check-auth`, { withCredentials: true }
     ).pipe(
@@ -27,13 +29,12 @@ export class AuthApiService {
         this.authState.next(res.isAuthenticated);
         return res.isAuthenticated;
       }),
-      catchError(() => {
+      catchError(err => {
         this.authState.next(false);
         return of(false);
       })
     );
   }
-
   registerService(fullName: string, phone: string, email: string, password: string): Observable<any> {
     const body = {
       FullName: fullName,
@@ -46,7 +47,7 @@ export class AuthApiService {
 
   login(email: string, password: string): Observable<any> {
     const body = {
-      Username: email,
+      Email: email,
       Password: password
     }
     return this.http.post(`${this.url}auth/login`, body, { withCredentials: true })
@@ -56,11 +57,21 @@ export class AuthApiService {
     return this.http.get<User>(`${this.url}account/me`, { withCredentials: true })
   }
 
-  setUser(user: any) {
+  setUser(user: User) {
     this.currentUserSubject.next(user)
     localStorage.setItem('user', JSON.stringify(user))
   }
+
+  removeUser() {
+    localStorage.clear()
+  }
+
   getUser() {
     return this.currentUserSubject.value ?? JSON.parse(localStorage.getItem("user") || ("null"))
+  }
+
+
+  logout(): Observable<any> {
+    return this.http.post(`${this.url}auth/logout`, {}, { withCredentials: true })
   }
 }

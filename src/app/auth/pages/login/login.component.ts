@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
+  standalone: false,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
@@ -12,6 +13,7 @@ export class LoginComponent {
   form: FormGroup
   loading = false
   message = ''
+  refreshToken = ''
   constructor(private fb: FormBuilder, private authService: AuthApiService, private router: Router) {
     this.form = this.fb.group({
       email: ['', Validators.required],
@@ -27,7 +29,9 @@ export class LoginComponent {
     }
     const { email, password } = this.form.value
     this.authService.login(email, password).subscribe({
-      next: () => this.router.navigate(['/']),
+      next: (res) => {
+        this.router.navigate(['/'])
+      },
       error: err => {
         console.log(err)
         if (err.error && err.error.Message) {

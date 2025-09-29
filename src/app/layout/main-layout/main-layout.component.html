@@ -1,0 +1,89 @@
+<div class="flex h-screen bg-gray-900 text-white">
+    <aside class="w-64 bg-gray-800 flex flex-col p-4">
+        <div class="text-xl font-bold mb-6">Trello</div>
+        <nav class="space-y-3">
+            <a href="#" class="flex items-center px-2 py-2 hover:bg-gray-700 rounded">
+                <span class="ml-2">Bảng</span>
+            </a>
+            <a href="#" class="flex items-center px-2 py-2 hover:bg-gray-700 rounded">
+                <span class="ml-2">Mẫu</span>
+            </a>
+            <a href="#" class="flex items-center px-2 py-2 hover:bg-gray-700 rounded">
+                <span class="ml-2">Trang chủ</span>
+            </a>
+        </nav>
+        <div class="mt-auto">
+            <h6 class="text-gray-400 text-xs uppercase mb-2">Các không gian làm việc</h6>
+            <ul class="space-y-2">
+                <li class="flex items-center">
+                    <div class="w-6 h-6 rounded bg-blue-600 flex items-center justify-center text-sm font-bold">K</div>
+                    <span class="ml-2 text-sm">Không gian làm việc của bạn</span>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <main class="flex-1 flex flex-col">
+        <header class="flex items-center justify-between p-4 border-b border-gray-700">
+            <input type="text" placeholder="Tìm kiếm"
+                class="w-72 px-3 py-2 bg-gray-700 rounded text-white focus:outline-none">
+            <div class="flex items-center space-x-3">
+                <button class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700">Tạo mới</button>
+                <div class="relative" (document:click)="onClickOutside($event)">
+                    <button (click)="toggleDropdown($event)">
+                        <img [src]="userInfo?.AvatarUrl || '../../../assets/avat.jpg'" alt="Avatar"
+                            class="w-8 h-8 rounded-full object-cover cursor-pointer">
+                    </button>
+                    <div *ngIf="dropdownOpen"
+                        class="absolute right-0 mt-2 w-72 bg-gray-800 text-white rounded-lg shadow-lg z-50">
+                        <div class="px-4 py-3 border-b border-gray-700">
+                            <div class="flex items-center space-x-3">
+                                <img [src]="userInfo?.AvatarUrl || '../../../assets/avat.jpg'"
+                                    class="w-12 h-12 rounded-full" alt="">
+                                <div>
+                                    <div class="font-semibold">{{userInfo?.FullName}}</div>
+                                    <div class="text-sm text-gray-400">{{userInfo?.Email}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="px-4 py-2 text-xs text-gray-400 uppercase">Tài khoản</div>
+                        <a routerLink="/cap-nhat-thong-tin" class="block px-4 py-2 hover:bg-gray-700">Quản lý tài
+                            khoản</a>
+                        <div class="px-4 py-2 text-xs text-gray-400 uppercase">Trello</div>
+                        <a routerLink="/profile" class="block px-4 py-2 hover:bg-gray-700">Hồ sơ và Hiển thị</a>
+                        <a routerLink="/activity" class="block px-4 py-2 hover:bg-gray-700">Hoạt động</a>
+                        <a routerLink="/cards" class="block px-4 py-2 hover:bg-gray-700">Thẻ</a>
+                        <a routerLink="/settings" class="block px-4 py-2 hover:bg-gray-700">Cài đặt</a>
+                        <a routerLink="/themes" class="block px-4 py-2 hover:bg-gray-700">Chủ đề</a>
+
+                        <a routerLink="/workspace/create" class="block px-4 py-2 hover:bg-gray-700">
+                            <span class="flex items-center space-x-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 4v16m8-8H4" />
+                                </svg>
+                                <span>Tạo Không gian làm việc</span>
+                            </span>
+                        </a>
+
+                        <div class="border-t border-gray-700"></div>
+                        <a routerLink="/help" class="block px-4 py-2 hover:bg-gray-700">Trợ giúp</a>
+                        <a routerLink="/shortcuts" class="block px-4 py-2 hover:bg-gray-700">Phím tắt</a>
+
+                        <div class="border-t border-gray-700"></div>
+                        <button (click)="logout()"
+                            class="block w-full text-left px-4 py-2 hover:bg-gray-700 text-red-400">
+                            Đăng xuất
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Body -->
+        <section class="p-4 overflow-y-auto">
+            <router-outlet></router-outlet>
+        </section>
+    </main>
+</div>
