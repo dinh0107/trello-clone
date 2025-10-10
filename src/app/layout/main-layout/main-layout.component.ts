@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthApiService } from 'src/app/auth/service/auth-api.service';
+import { InfoService } from 'src/app/components/update-info/info.service';
 import { User } from 'src/app/core/user';
 
 @Component({
@@ -10,11 +11,20 @@ import { User } from 'src/app/core/user';
   styleUrls: ['./main-layout.component.scss'],
 })
 export class MainLayoutComponent implements OnInit {
-  userInfo?: User
+  userInfo: User | null = null
   dropdownOpen = false;
 
   constructor(private service: AuthApiService, private router: Router) { }
-
+  ngOnInit(): void {
+    this.service.getInfoUser().subscribe({
+      next: (data) => {
+        this.service.setUser(data)
+      }
+    })
+    this.service.currentUser$.subscribe(a => {
+      this.userInfo = a
+    })
+  }
   toggleDropdown(event: Event) {
     event.stopPropagation();
     this.dropdownOpen = !this.dropdownOpen;
@@ -26,14 +36,7 @@ export class MainLayoutComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    this.service.getInfoUser().subscribe({
-      next: (data) => {
-        this.userInfo = this.service.getUser()
-        this.service.setUser(data)
-      }
-    })
-  }
+
 
   logout() {
     this.service.logout().subscribe({
