@@ -1,0 +1,28 @@
+<div class="flex gap-2">
+  <div class="flex-1 relative">
+    <div class="flex flex-wrap items-center gap-2 bg-[#3C4043] text-[#E8EAED] rounded-md px-3 py-1 min-h-[40px]">
+
+      <div *ngFor="let u of selectedUsers" class="flex items-center bg-[#5f6368] rounded-full px-2 py-[2px] text-sm">
+        {{ u.FullName }}
+        <button (click)="removeUser(u)" class="ml-1 text-gray-300 hover:text-red-400">×</button>
+      </div>
+
+      <input [(ngModel)]="keyWords" (keyup)="onkeyUp(keyWords)" autocomplete="off"
+        class="flex-1 bg-transparent outline-none placeholder-[#9AA0A6] text-sm py-1"
+        placeholder="Địa chỉ email hoặc tên" />
+    </div>
+
+    <div *ngIf="showDropdown && users.length > 0"
+      class="absolute z-10 bg-[#2a2b2f] w-full mt-1 rounded-md shadow-lg max-h-60 overflow-y-auto">
+      <div *ngFor="let user of users" (click)="selectUser(user)" class="px-3 py-2 hover:bg-[#3C4043] cursor-pointer">
+        <div class="font-medium text-[#E8EAED]">{{ user.FullName }}</div>
+        <div class="text-xs text-[#9AA0A6]">{{ user.Email }}</div>
+      </div>
+    </div>
+  </div>
+
+  <button class="h-10 px-4 rounded-md bg-[#1a73e8] hover:bg-[#1765cc] text-white t13 font-medium"
+    (click)="submitUser()">
+    Chia sẻ
+  </button>
+</div>  
