@@ -1,0 +1,47 @@
+/* Scrollbar ngang toàn trang kiểu nổi */
+::-webkit-scrollbar {
+    height: 8px;
+    /* Độ dày thanh cuộn ngang */
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+    /* Ẩn nền track */
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.25);
+    /* Màu sáng trong suốt */
+    border-radius: 9999px;
+    /* Bo tròn */
+    transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.45);
+    /* Đậm hơn khi hover */
+}
+
+html {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+.cdk-drag-preview {
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    background: #1c1c1c;
+    color: white;
+    width: 250px;
+    padding: 10px;
+    filter: brightness(1.1) saturate(1.2);
+    cursor: grabbing;
+}
+
+.cdk-drag-placeholder {
+    opacity: 0.2;
+}
+
+.cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}

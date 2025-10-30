@@ -1,0 +1,31 @@
+<div class="relative z-10 w-[720px] max-w-[720px]  bg-[#303134] shadow-2xl ring-1 ring-black/5">
+    <div class="flex items-center justify-between px-6 py-4 border-b border-[#3c4043]">
+        <h2 class="t16 font-semibold text-[#E8EAED]">Chia sẻ bảng</h2>
+        <button class="t16 text-[#BDC1C6] hover:text-white" aria-label="Đóng" (click)="diaLogRef.close()">✕</button>
+    </div>
+    <div class="px-6 pt-4 pb-6">
+        <app-search-user [boardId]="data"></app-search-user>
+        <!-- tiêu đề danh sách -->
+        <div class="mt-3 border-b border-[#3c4043] pb-2 flex items-center gap-2">
+            <span class="t13 font-medium text-[#E8EAED]">Thành viên của bảng thông tin</span>
+            <span class="t12 text-[#E8EAED] bg-[#3C4043] px-2 py-[2px] rounded-md">{{users.length}}</span>
+        </div>
+        <!-- list người dùng -->
+        <div class="mt-2 max-h-[360px] overflow-y-auto pr-1">
+            <!-- item -->
+            <div class="flex items-center justify-between py-2" *ngFor="let user of users">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-[#5f6368] text-white t13 font-semibold grid place-items-center">
+                        <img [src]="user.AvatarUrl || 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png'"
+                            class="w-full h-full object-cover rounded-full" alt="{{user.FullName}}" />
+                    </div>
+                    <div>
+                        <div class="t14 text-[#E8EAED]">{{user.FullName}} <span *ngIf="user.IsOwner">(bạn)</span>
+                        </div>
+                        <div class="t12 text-[#9AA0A6]">@{{user.Email}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

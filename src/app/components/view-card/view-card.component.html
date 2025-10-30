@@ -1,0 +1,67 @@
+<div class="bg-[#242528]  overflow-hidden">
+    <div class="flex justify-end border-b border-gray-700 p-2">
+        <mat-icon class="text-[20px] text-white cursor-pointer" (click)="dialogRef.close()">close</mat-icon>
+    </div>
+    <div class="grid grid-cols-3">
+        <div class="col-span-2 bg-[#2e3035] p-4 ">
+            <textarea
+                class="text-[#BFC1C4] text-[30px] font-bold bg-transparent w-full resize-none focus:outline-none mb-3"
+                [(ngModel)]="data.Title" [readOnly]="!isEditing" (click)="enableEdit()" (blur)="disableEdit()"
+                rows="1"></textarea>
+            <div class="inline-flex gap-2" role="group">
+                <button type="button"
+                    class="flex items-center justify-center w-fit px-2 gap-2 py-1.5 text-[12px] font-medium bg-transparent text-[#BFC1C4] border border-[#BFC1C4]  hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
+                    <div class="pi pi-bookmark text-[#BFC1C4] cursor-pointer"></div>
+                    <span class="text-[#BFC1C4]">Nhãn</span>
+                </button>
+                <button type="button"
+                    class="flex items-center justify-center w-fit px-2 gap-2 py-1.5 text-[12px] font-medium bg-transparent text-[#BFC1C4] border border-b border-[#BFC1C4] hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
+                    <div class="pi pi-clock text-[#BFC1C4]"></div>
+                    <span class="text-[#BFC1C4]">Ngày</span>
+                </button>
+                <button type="button"
+                    class="flex items-center justify-center w-fit px-2 gap-2 py-1.5 text-[12px] font-medium bg-transparent text-[#BFC1C4] border border-[#BFC1C4]  hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
+                    <span class="pi pi-check text-[#BFC1C4] cursor-pointer"></span>
+                    <span class="text-[#BFC1C4]">Việc cần làm</span>
+                </button>
+                <button type="button"
+                    class="flex items-center justify-center w-fit px-2 gap-2 py-1.5 text-[12px] font-medium bg-transparent text-[#BFC1C4] border border-[#BFC1C4]  hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
+                    <span class="pi pi-user-plus text-[#BFC1C4] cursor-pointer"></span>
+                    <span class="text-[#BFC1C4]">Thành viên</span>
+                </button>
+            </div>
+            <div class="mt-4 text-sm text-gray-300">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="flex items-center gap-1 text-[15px] font-bold text-[#BFC1C4]">
+                        <mat-icon class="text-[20px] text-[#BFC1C4] cursor-pointer">sort</mat-icon> Mô
+                        tả</span>
+                    <button type="button" class="py-1.5 px-3 text-[14px] bg-[#b0b0b024] rounded text-[#BFC1C4]"
+                        *ngIf="data.Description" (click)="toggleEditor()">
+                        Chỉnh sửa
+                    </button>
+                </div>
+                <app-editor *ngIf="isEditor" (status)="onEditorStatusChange($event)" [id]="data.Id"
+                    [description]="data.Description"></app-editor>
+                <div class="border rounded p-3 bg-[#2b2c2f] text-[12px] text-white cursor-pointer"
+                    (click)="toggleEditor()" *ngIf="!isEditor && !data.Description">
+                    Thêm mô tả chi tiết hơn ...
+                </div>
+                <div class="p-2" [innerHTML]="data.Description" *ngIf="!isEditor"></div>
+            </div>
+        </div>
+        <div class="bg-[#1e1f22] p-4 rounded text-gray-200">
+            <div class="card-history">
+                <div class="flex gap-2">
+                    <p-avatar
+                        [image]="data.CreatedBy.AvatarUrl || 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png'"
+                        shape="circle" />
+                    <div class="text-[13px]">
+                        <strong> {{data.CreatedBy.FullName}}</strong>
+                        đã thêm thẻ này vào danh sách
+                        <span class="decoration-slice text-[10px] text-blue-600">{{data.CreatedBy.Creatdate}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

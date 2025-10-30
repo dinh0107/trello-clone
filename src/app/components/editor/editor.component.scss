@@ -1,0 +1,171 @@
+:host ::ng-deep .NgxEditor__Content {
+    background-color: #2c2d31 !important;
+    color: #ffffff;
+    min-height: 200px;
+    padding: 12px;
+    line-height: 1.6;
+    // font-size: 15px;
+    font-family: "Inter", "Roboto", sans-serif;
+    outline: none;
+    border: 1px solid #333;
+
+}
+
+:host ::ng-deep .NgxEditor__MenuBar {
+    background-color: #242528 !important;
+}
+
+:host ::ng-deep .NgxEditor__MenuBar button {
+    background: transparent !important;
+    color: inherit !important;
+    border: none !important;
+    box-shadow: none !important;
+    transition: none !important;
+    cursor: default !important;
+}
+
+:host ::ng-deep .NgxEditor__MenuBar button:hover,
+:host ::ng-deep .NgxEditor__MenuBar button:focus {
+    background: transparent !important;
+    color: inherit !important;
+    box-shadow: none !important;
+}
+
+/* Dành cho popup chèn hình ảnh trong NgxEditor */
+:host ::ng-deep .NgxEditor__Popup,
+:host ::ng-deep .NgxEditor__Popup input,
+:host ::ng-deep .NgxEditor__Popup textarea,
+:host ::ng-deep .NgxEditor__Popup select {
+    background-color: #2b2c2f !important;
+    /* Nền tối */
+    color: #ffffff !important;
+    /* Chữ sáng */
+    border: 1px solid #444 !important;
+}
+
+/* Đổi màu placeholder */
+:host ::ng-deep .NgxEditor__Popup input::placeholder {
+    color: #aaa !important;
+}
+
+/* Nút Insert, Cancel trong popup */
+:host ::ng-deep .NgxEditor__Popup button {
+    background-color: #3a3b3f !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 4px;
+    padding: 4px 10px;
+    cursor: pointer;
+}
+
+:host ::ng-deep .NgxEditor__Popup button:hover {
+    background-color: #2563eb !important;
+    /* xanh nhạt hơn khi hover */
+}
+
+:host ::ng-deep .NgxEditor__MenuBar select,
+:host ::ng-deep .NgxEditor__MenuBar option {
+    background-color: #2b2c2f !important;
+    color: #fff !important;
+    border: 1px solid #444 !important;
+}
+
+/* Khi hover hoặc focus */
+:host ::ng-deep .NgxEditor__MenuBar select:hover,
+:host ::ng-deep .NgxEditor__MenuBar select:focus {
+    background-color: #3a3b3f !important;
+    color: #fff !important;
+}
+
+/* Popup chèn ảnh / link */
+:host ::ng-deep .NgxEditor__Popup,
+:host ::ng-deep .NgxEditor__Popup input,
+:host ::ng-deep .NgxEditor__Popup textarea,
+:host ::ng-deep .NgxEditor__Popup select {
+    background-color: #2b2c2f !important;
+    color: #fff !important;
+    border: 1px solid #444 !important;
+}
+
+/* Placeholder */
+:host ::ng-deep .NgxEditor__Popup input::placeholder {
+    color: #aaa !important;
+}
+
+/* Nút Insert / Cancel */
+:host ::ng-deep .NgxEditor__Popup button {
+    background-color: #3a3b3f !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 4px;
+    padding: 4px 10px;
+    cursor: pointer;
+}
+
+:host ::ng-deep .NgxEditor__Popup button:hover {
+    background-color: #2563eb !important;
+}
+
+/* Fix dropdown Heading trong dark mode */
+:host ::ng-deep .NgxEditor__MenuBar select {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    background-color: #2b2c2f !important;
+    color: #fff !important;
+    border: 1px solid #444 !important;
+    border-radius: 4px !important;
+    padding: 2px 6px !important;
+    // font-size: 14px !important;
+    cursor: pointer !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) inset !important;
+}
+
+/* Khi hover / focus */
+:host ::ng-deep .NgxEditor__MenuBar select:hover,
+:host ::ng-deep .NgxEditor__MenuBar select:focus {
+    background-color: #3a3b3f !important;
+    color: #fff !important;
+    outline: none !important;
+}
+
+/* Màu cho các option trong dropdown */
+:host ::ng-deep .NgxEditor__MenuBar option {
+    background-color: #2b2c2f !important;
+    color: #fff !important;
+}
+
+:host ::ng-deep .NgxEditor__Dropdown .NgxEditor__Dropdown--DropdownMenu {
+    background: #3a3b3f;
+}
+
+/* Style cho các Heading trong nội dung editor */
+:host ::ng-deep .NgxEditor__Content h1 {
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    margin: 8px 0 !important;
+}
+
+:host ::ng-deep .NgxEditor__Content h2 {
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    margin: 6px 0 !important;
+}
+
+:host ::ng-deep .NgxEditor__Content h3 {
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    margin: 5px 0 !important;
+}
+
+:host ::ng-deep .NgxEditor__Content h4 {
+    font-size: 16px !important;
+    font-weight: 500 !important;
+}
+
+:host ::ng-deep .NgxEditor__Content p {
+    font-size: 15px !important;
+    font-weight: 400 !important;
+    line-height: 1.6 !important;
+    margin: 4px 0 !important;
+}

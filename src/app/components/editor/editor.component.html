@@ -1,0 +1,8 @@
+<div class="NgxEditor__Wrapper mt-3">
+    <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+    <ngx-editor [editor]="editor" [(ngModel)]="html" [placeholder]="'Làm cho mô tả của bạn tốt hơn nữa.'"></ngx-editor>
+</div>
+<div class="flex gap-2">
+    <button type="submit" class="py-1.5 px-3 bg-blue-600 mt-3 rounded" (click)="onSumit()">Lưu</button>
+    <button type="button" (click)="toggle()" class="py-1.5 px-3 mt-3 rounded">Hủy</button>
+</div>

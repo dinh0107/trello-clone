@@ -1,1 +1,58 @@
-<p>jobs works!</p>
+<div [ngStyle]="{'background-image':'url(' + boad?.BackgroundImage + ')'}" class="h-screen w-screen bg-cover">
+    <div class=" w-full bg-[#00000056]">
+        <div class="px-5 mx-auto flex justify-between items-center">
+            <div class="text-[16px] font-medium text-white py-3">{{boad?.Name}}</div>
+            <div class="flex items-center gap-3">
+                <p-avatarGroup>
+                    <p-avatar [image]="user.AvatarUrl || 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png'"
+                        shape="circle" *ngFor="let user of users.slice(0,5)" />
+                    <p-avatar [label]="'+' + (users.length - 5)" shape="circle"
+                        [style]="{ 'background-color': '#9c27b0', color: '#ffffff' }" *ngIf="users.length > 5" />
+                </p-avatarGroup>
+                <button type="button" class="px-3 py-1 bg-white text-black rounded min-w-40 h-10"
+                    (click)='openPopUp()'>Chia
+                    sẻ</button>
+            </div>
+        </div>
+    </div>
+    <div class="px-5 pt-3 h-[90vh]">
+        <div class="flex gap-4 overflow-x-auto space-x-3 h-full" cdkDropList [cdkDropListData]="lists"
+            cdkDropListOrientation="horizontal" (cdkDropListDropped)="dropList($event)">
+            <div class="flex-none w-1/7 min-w-[250px] h-fit bg-[#0E1404] p-2.5 rounded-[10px] list-shell"
+                *ngFor="let list of lists" cdkDrag [attr.id]="'list-' + list.Id">
+                <div class="card-h text-white  text-sm mb-2">
+                    <span class="text-white font-medium w-full block cursor-pointer" *ngIf="!list.ShowInput"
+                        (click)="list.ShowInput = true">{{list.Title}}</span>
+                    <input type="text" [(ngModel)]="list.Title" name="nameList" *ngIf="list.ShowInput"
+                        (blur)="changeNameList( $event ,list.Id , list)"
+                        class="text-white outline-none border-none bg-transparent font-medium block w-full rounded p-1 outline-1 outline-offset-2 outline-blue-500  ">
+                </div>
+                <app-card [id]="list.Id" [connectedLists]="connectedLists"></app-card>
+                <div class="text-white rounded flex items-center p-1.5 bg-[#979797b3] cursor-pointer mt-2"
+                    *ngIf="!list.IsOpen" (click)="list.IsOpen = true">
+                    <mat-icon class="text-[20px]">add</mat-icon>
+                    <span class="text-sm">Thêm thẻ</span>
+                </div>
+                <app-form-card *ngIf="list.IsOpen" [id]="list.Id"></app-form-card>
+            </div>
+            <div class="flex-none w-1/7 min-w-[250px] h-fit">
+                <div class="text-white rounded flex items-center p-2 bg-[#979797b3] cursor-pointer " *ngIf="!quickForm"
+                    (click)="quickForm = true">
+                    <mat-icon class="text-[20px]">add</mat-icon>
+                    <span>Thêm danh sách</span>
+                </div>
+                <form class="bg-black p-2.5 rounded" *ngIf="quickForm" [formGroup]="addList" (ngSubmit)="submitList()">
+                    <input type="text" placeholder="Nhập tên danh sách" formControlName="Title"
+                        class="rounded w-full bg-transparent p-2 border border-[#668DF3] outline-none text-white">
+                    <div class="flex gap-3 mt-3 text-white items-center cursor-pointer">
+                        <button type="submit" class="rounded text-black  text-sm p-2  px-3"
+                            [ngClass]="{'bg-[#668DF3]' : addList.valid , 'bg-[#606674]': addList.invalid}">Thêm
+                            danh
+                            sách</button>
+                        <mat-icon class="text-[20px]" (click)="closeForm()">close</mat-icon>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

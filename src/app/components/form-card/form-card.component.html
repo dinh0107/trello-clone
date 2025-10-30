@@ -1,0 +1,10 @@
+<form class="bg-black mt-2 rounded" [formGroup]="addCard" (ngSubmit)="submitCard()">
+    <textarea placeholder="Nhập tên thẻ" formControlName="title"
+        class="rounded w-full  p-2 border border-[#668DF3] outline-none text-white text-sm bg-[#242528]"></textarea>
+    <div class="flex gap-3 mt-3 text-white items-center cursor-pointer">
+        <button type="submit" class="rounded text-black  text-sm p-2  px-3"
+            [ngClass]="{'bg-[#668DF3]' : addCard.valid , 'bg-[#606674]': addCard.invalid}">Thêm
+            thẻ</button>
+        <!-- <mat-icon class="text-[20px]" (click)="closeFormList(list)">close</mat-icon> -->
+    </div>
+</form>

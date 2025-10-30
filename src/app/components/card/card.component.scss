@@ -1,0 +1,49 @@
+.dropzone {
+    min-height: 60px;
+}
+
+.empty-placeholder {
+    user-select: none;
+}
+
+.context-menu {
+    animation: fadeIn 0.1s ease-in-out;
+}
+
+.menu-container {
+    backdrop-filter: blur(6px);
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #2C2C2C;
+    padding: 6px 10px;
+    margin-bottom: 4px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    font-weight: 500;
+}
+
+.menu-item:hover {
+    background-color: #3B3B3B;
+}
+
+.menu-divider {
+    height: 1px;
+    background-color: #333;
+    margin: 6px 0;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

@@ -16,9 +16,9 @@ export class AuthApiService {
 
   constructor(private http: HttpClient) { }
 
+
   checkAuth(): Observable<boolean> {
     if (this.authState.value !== null) {
-      console.log('checkAuth cache:', this.authState.value);
       return of(this.authState.value);
     }
 
@@ -29,7 +29,7 @@ export class AuthApiService {
         this.authState.next(res.isAuthenticated);
         return res.isAuthenticated;
       }),
-      catchError(err => {
+      catchError(() => {
         this.authState.next(false);
         return of(false);
       })
@@ -50,7 +50,7 @@ export class AuthApiService {
       Email: email,
       Password: password
     }
-    return this.http.post(`${this.url}auth/login`, body, { withCredentials: true })
+    return this.http.post(`${this.url}auth/login/`, body, { withCredentials: true })
   }
 
   getInfoUser(): Observable<User> {
@@ -70,8 +70,11 @@ export class AuthApiService {
     return this.currentUserSubject.value ?? JSON.parse(localStorage.getItem("user") || ("null"))
   }
 
-
   logout(): Observable<any> {
     return this.http.post(`${this.url}auth/logout`, {}, { withCredentials: true })
+  }
+
+  updateInfo(body: FormData): Observable<any> {
+    return this.http.post(`${this.url}account/update-info`, body, { withCredentials: true })
   }
 }

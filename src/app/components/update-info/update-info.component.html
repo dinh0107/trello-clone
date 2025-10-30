@@ -1,21 +1,26 @@
-<div class="flex justify-center flex-col mx-auto w-[400px]">
+<div class="flex justify-start flex-col mx-auto w-[400px] h-[80vh]">
     <h1 class="text-[20px]">Hồ sơ và hiển thị</h1>
-    <form [formGroup]="form">
-        <label class="block mt-4">
-            <span class="sr-only">Chọn ảnh</span>
-            <input type="file" accept="image/*" class="block w-full text-sm text-gray-500
-                file:mr-4 file:py-2 file:px-4
-                file:rounded-full file:border-0
-                file:text-sm file:font-semibold
-                file:bg-blue-50 file:text-blue-700
-                hover:file:bg-blue-100">
-        </label>
-        <input type="text" placeholder="" [value]="info?.FullName" formControlName="FullName"
+    <form [formGroup]="form" (ngSubmit)="handleInfo()">
+        <div class="flex flex-col items-center gap-4 p-4 rounded-lg w-[250px] text-white">
+            <div (click)="triggerFileUpload()" class="cursor-pointer relative">
+                <p-avatar [image]="avatarUrl || 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png'" size="xlarge"
+                    shape="circle" styleClass="shadow-lg hover:opacity-80 transition w-40 h-40">
+                </p-avatar>
+                <span class="absolute bottom-1 right-1 bg-black/50 rounded-full p-1">
+                    <i class="pi pi-camera text-white text-xs"></i>
+                </span>
+            </div>
+            <input #fileInput type="file" accept="image/*" hidden (change)="onFileChange($event)" />
+        </div>
+
+        <input type="text" pInputText placeholder="" formControlName="FullName"
             class="block w-full border border-[#172b4d] p-2 mt-3 focus:border-[#1370fb] rounded text-[#000]">
-        <input type="date" placeholder="" [value]="info?.birthDate ? (info?.birthDate | date: 'yyyy-MM-dd') : null"
-            formControlName="birthDate" placeholder="Nhập ngày tháng năm sinh"
-            class=" block w-full border border-[#172b4d] p-2 mt-3 focus:border-[#1370fb] rounded text-[#000]">
+        <input type="text" pInputText placeholder="" formControlName="Phone"
+            class="block w-full border border-[#172b4d] p-2 mt-3 focus:border-[#1370fb] rounded text-[#000]">
+        <p-calendar dateFormat="dd/mm/yy" placeholder="Chọn ngày sinh" class="mt-3 block" formControlName="BirthDate">
+        </p-calendar>
         <button type="submit" class="block w-full text-white rounded font-medium text-center p-2 mt-3 bg-[#1370fb]">Cập
             nhật</button>
     </form>
 </div>
+<p-toast position="bottom-right" key="br" />

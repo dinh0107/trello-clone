@@ -1,0 +1,54 @@
+<div class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4">
+  <div class="w-full max-w-xs md:max-w-sm lg:max-w-md bg-gray-800 rounded-xl shadow-2xl overflow-hidden">
+    <div class="flex items-center justify-between px-4 py-3 border-b border-gray-700">
+      <div class="flex items-center gap-3">
+        <button id="btnBack" class="p-1 rounded-md hover:bg-gray-700">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-200" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <h3 class="text-sm font-semibold">Tạo bảng</h3>
+      </div>
+      <button id="btnClose" class="p-1 rounded-md hover:bg-gray-700" (click)="close()">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd"
+            d="M10 8.586L15.657 3 17 4.343 11.343 10 17 15.657 15.657 17 10 11.343 4.343 17 3 15.657 8.657 10 3 4.343 4.343 3 10 8.657z"
+            clip-rule="evenodd" />
+        </svg>
+      </button>
+    </div>
+    <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+      <div class="p-4 space-y-4 max-h-[75vh] overflow-y-auto no-scrollbar">
+        <div class="mx-auto w-full overflow-hidden rounded-lg border border-gray-700 bg-gray-900">
+          <img class="w-full preview-img" [src]="backgroundSelected" alt="board preview">
+        </div>
+        <div>
+          <label class="block text-sm text-gray-300 mb-2">Phông nền</label>
+          <div id="bgThumbs" class="flex gap-3 items-center">
+            <div *ngFor="let back of background"
+              class="cursor-pointer bg-thumb-item w-[25%] h-10 rounded-md overflow-hidden border-2 border-transparent hover:border-gray-500">
+              <img [src]="back" class="object-cover" (click)="backgroundSelected = back" alt="background">
+            </div>
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm text-gray-300 mb-2">Tiêu đề bảng <span class="text-rose-500">*</span></label>
+          <input formControlName="title" id="titleInput" type="text" placeholder="Nhập tiêu đề bảng"
+            class="w-full bg-gray-700 placeholder-gray-400 text-white rounded-md px-3 py-2 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+          <p id="titleHint" class="mt-2 text-xs text-yellow-300 flex items-center gap-2" *ngIf="createForm.get('title')?.getError('required') && createForm.get('title')?.touched">
+            <span class="text-lg">👋</span>
+            <span>Tiêu đề bảng là bắt buộc</span>
+          </p>
+        </div>
+        <div class="flex flex-col gap-3 mt-3">
+          <button id="createBtn" [disabled]="createForm.invalid" [ngClass]="{'bg-gray-400 opacity-40 ' : createForm.invalid , 'bg-blue-700' : createForm.valid}"
+            class="w-full rounded-md py-2 text-sm font-medium  text-white "
+            type="submit">
+            Tạo mới
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

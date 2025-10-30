@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 import { AuthLayoutComponent } from './layout/auth-layout/auth-layout.component';
+import { ViewLayoutComponent } from './layout/view-layout/view-layout.component';
 
 const routes: Routes = [
 
@@ -34,9 +35,16 @@ const routes: Routes = [
         path: 'cap-nhat-thong-tin',
         loadChildren: () => import('./components/update-info/update-info.module').then(a => a.UpdateInfoModule)
       },
+    ]
+  },
+  { 
+    path:'bang',
+    component : ViewLayoutComponent,
+    canActivate: [AuthGuard],
+    children:[
       {
-        path: ':id',
-        loadChildren: () => import('./jobs/job.module').then(a => a.JobModule)
+        path:':id',
+        loadChildren: ()=> import('./jobs/job.module').then(a => a.JobModule)
       }
     ]
   }

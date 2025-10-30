@@ -12,15 +12,6 @@
                 <span class="ml-2">Trang chủ</span>
             </a>
         </nav>
-        <div class="mt-auto">
-            <h6 class="text-gray-400 text-xs uppercase mb-2">Các không gian làm việc</h6>
-            <ul class="space-y-2">
-                <li class="flex items-center">
-                    <div class="w-6 h-6 rounded bg-blue-600 flex items-center justify-center text-sm font-bold">K</div>
-                    <span class="ml-2 text-sm">Không gian làm việc của bạn</span>
-                </li>
-            </ul>
-        </div>
     </aside>
 
     <main class="flex-1 flex flex-col">
@@ -28,21 +19,25 @@
             <input type="text" placeholder="Tìm kiếm"
                 class="w-72 px-3 py-2 bg-gray-700 rounded text-white focus:outline-none">
             <div class="flex items-center space-x-3">
-                <button class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700">Tạo mới</button>
+                <div>
+                    <button class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700" (click)="displayForm()">Tạo
+                        mới</button>
+                    <app-CreatBoard *ngIf="toggleForm" (onClose)="displayForm()"></app-CreatBoard>
+                </div>
                 <div class="relative" (document:click)="onClickOutside($event)">
                     <button (click)="toggleDropdown($event)">
-                        <img [src]="userInfo?.AvatarUrl || '../../../assets/avat.jpg'" alt="Avatar"
-                            class="w-8 h-8 rounded-full object-cover cursor-pointer">
+                        <img [src]="userInfo?.AvatarUrl || 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png'"
+                            alt="Avatar" class="w-8 h-8 rounded-full object-cover cursor-pointer">
                     </button>
                     <div *ngIf="dropdownOpen"
-                        class="absolute right-0 mt-2 w-72 bg-gray-800 text-white rounded-lg shadow-lg z-50">
+                        class="absolute right-0 mt-2 w-72 bg-gray-800 text-white rounded-lg shadow-lg z-50 overflow-hidden">
                         <div class="px-4 py-3 border-b border-gray-700">
                             <div class="flex items-center space-x-3">
                                 <img [src]="userInfo?.AvatarUrl || '../../../assets/avat.jpg'"
                                     class="w-12 h-12 rounded-full" alt="">
                                 <div>
                                     <div class="font-semibold">{{userInfo?.FullName}}</div>
-                                    <div class="text-sm text-gray-400">{{userInfo?.Email}}</div>
+                                    <div class="text-sm text-gray-400 truncate w-40">{{userInfo?.Email}}</div>
                                 </div>
                             </div>
                         </div>

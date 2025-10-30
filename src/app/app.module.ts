@@ -12,23 +12,41 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
+import { CreatBoardComponent } from './components/CreatBoard/CreatBoard.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { RouterModule } from '@angular/router';
+import { ViewLayoutComponent } from './layout/view-layout/view-layout.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { NgxEditorModule } from 'ngx-editor';
+
 @NgModule({
   declarations: [
     AppComponent,
     LoadingComponent,
     MainLayoutComponent,
     AuthLayoutComponent,
+    CreatBoardComponent,
+    ViewLayoutComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    RouterModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    MatDialogModule,
+    DragDropModule,
+    FormsModule,
+    SweetAlert2Module.forRoot(),
     MatDatepickerModule,
     MatInputModule,
     MatNativeDateModule,
-    FormsModule
+    FormsModule,
+    MatIconModule,
+    NgxEditorModule
   ],
   providers: [
     {
