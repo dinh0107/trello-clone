@@ -28,8 +28,15 @@ export class FormCardComponent {
       ListId: this.id
     }
     this.service.addCardToList(data).subscribe({
-      next: (res) => {
-        this.service.addStateToCard(res.Card, this.id)
+      next: res => {
+        if (res.Success) {
+          this.service.cards.update(prev => {
+            const newMap = new Map(prev)
+            const list = newMap.get(data.ListId) || []
+            newMap.set(data.ListId, [...list, res.Card])
+            return newMap
+          })
+        }
         this.addCard.reset()
       }
     })

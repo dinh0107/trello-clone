@@ -13,7 +13,10 @@ import { EditorComponent } from "../components/editor/editor.component";
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { NgxEditorModule } from "ngx-editor";
-
+import { ToastModule } from "primeng/toast";
+import { RippleModule } from "primeng/ripple";
+import { MessageService } from "primeng/api";
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 const routes: Routes = [
     { path: '', component: JobsComponent }
 ]
@@ -29,8 +32,9 @@ const routes: Routes = [
         AvatarGroupModule,
         NgxEditorModule,
         ɵInternalFormsSharedModule,
-        FormsModule,
-        MatIconModule,
-    ]
+        FormsModule, ToastModule,
+        MatIconModule, RippleModule, OverlayPanelModule
+    ],
+    providers: [MessageService]
 })
 export class JobModule { }

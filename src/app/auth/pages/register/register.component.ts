@@ -41,7 +41,9 @@ export class RegisterComponent {
     const { fullName, phone, email, password } = this.form.value
     this.service.registerService(fullName, phone, email, password).subscribe({
       next: () => {
-        this.router.navigate(['/'])
+        this.service.checkAuth(true).subscribe(isAuth => {
+          if (isAuth) this.router.navigateByUrl('/')
+        })
       },
       error: err => {
         this.loading = false

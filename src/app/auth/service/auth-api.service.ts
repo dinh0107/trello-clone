@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { BehaviorSubject, catchError, map, Observable, of, tap } from 'rxjs';
 import { User } from 'src/app/core/user';
 
@@ -10,31 +10,30 @@ export class AuthApiService {
 
   url = 'https://api.chunmedia.vn/api/'
 
-  private authState = new BehaviorSubject<boolean | null>(null)
+  // private authState = new BehaviorSubject<boolean | null>(null)
+  isAuthenticated = signal<boolean | null>(null)
   private currentUserSubject = new BehaviorSubject<any | null>(null)
   currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(private http: HttpClient) { }
 
 
-  checkAuth(): Observable<boolean> {
-    if (this.authState.value !== null) {
-      return of(this.authState.value);
+  checkAuth(forceRefresh = false): Observable<boolean> {
+    if (!forceRefresh && this.isAuthenticated() != null) {
+      return of(this.isAuthenticated()!)
     }
-
     return this.http.get<{ isAuthenticated: boolean }>(
       `${this.url}auth/check-auth`, { withCredentials: true }
     ).pipe(
-      map(res => {
-        this.authState.next(res.isAuthenticated);
-        return res.isAuthenticated;
-      }),
+      tap(res => this.isAuthenticated.set(res.isAuthenticated)),
+      map(res => res.isAuthenticated),
       catchError(() => {
-        this.authState.next(false);
-        return of(false);
+        this.isAuthenticated.set(false)
+        return of(false)
       })
     );
   }
+
   registerService(fullName: string, phone: string, email: string, password: string): Observable<any> {
     const body = {
       FullName: fullName,

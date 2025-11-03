@@ -1,4 +1,4 @@
-<div class="bg-[#242528]  overflow-hidden">
+<div class="bg-[#242528]">
     <div class="flex justify-end border-b border-gray-700 p-2">
         <mat-icon class="text-[20px] text-white cursor-pointer" (click)="dialogRef.close()">close</mat-icon>
     </div>
@@ -24,10 +24,31 @@
                     <span class="pi pi-check text-[#BFC1C4] cursor-pointer"></span>
                     <span class="text-[#BFC1C4]">Việc cần làm</span>
                 </button>
-                <button type="button"
+                <button type="button" (click)="mem.toggle($event)"
                     class="flex items-center justify-center w-fit px-2 gap-2 py-1.5 text-[12px] font-medium bg-transparent text-[#BFC1C4] border border-[#BFC1C4]  hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
                     <span class="pi pi-user-plus text-[#BFC1C4] cursor-pointer"></span>
                     <span class="text-[#BFC1C4]">Thành viên</span>
+                    <p-overlayPanel #mem styleClass="p-2 bg-[#242528] rounded-md p-3 pr-8 text-[#BFC1C4] w-[360px]">
+                        <div class="rounded  w-[300px]">
+                            <span class="block text-center text[-14px] text-[#BFC1C4]">Thành viên</span>
+                            <input type="text" placeholder="Tìm kiếm các thành viên" (input)="filterUser($event)"
+                                pInputText
+                                class="block mt-3 p-1.5 bg-transparent w-full border border-[#BFC1C4] rounded text-[#BFC1C4] text-[12px]">
+                            <span class="text-left font-bold block mt-3 text-[#BFC1C4] text-[12px] ">Thành viên của
+                                bảng</span>
+                            @for (item of users; track $index) {
+                            <div class="flex gap-2 items-center mt-3 hover:bg-[#2e3035] p-2 cursor-pointer">
+                                <p-avatar
+                                    [image]="item.AvatarUrl || 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png'"
+                                    shape="circle" ngClass="h-[32px]" />
+                                <div class="text-[13px] font-light  ">
+                                    {{item.FullName}}
+                                </div>
+                            </div>
+                            }
+
+                        </div>
+                    </p-overlayPanel>
                 </button>
             </div>
             <div class="mt-4 text-sm text-gray-300">
@@ -58,7 +79,8 @@
                     <div class="text-[13px]">
                         <strong> {{data.CreatedBy.FullName}}</strong>
                         đã thêm thẻ này vào danh sách
-                        <span class="decoration-slice text-[10px] text-blue-600">{{data.CreatedBy.Creatdate}}</span>
+                        <span class="decoration-slice text-[10px] text-blue-600">{{data.CreatedAt |
+                            date:'short'}}</span>
                     </div>
                 </div>
             </div>

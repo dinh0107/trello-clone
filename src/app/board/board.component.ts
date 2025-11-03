@@ -9,18 +9,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
-  boards : Board [] = []
-  constructor(private boardService : BoadServiceService , private route : Router){}
+  constructor(private boardService: BoadServiceService, private route: Router) { }
 
   ngOnInit(): void {
     this.boardService.getBoard()
-      this.boardService.board$.subscribe(data => this.boards = data)
   }
 
-  redirec(id?:number){
-    if(!id){
+  get boards() {
+    return this.boardService.boards()
+  }
+
+  redirec(id?: number) {
+    if (!id) {
       console.log("id null")
     }
-    this.route.navigate(['/bang' , id])
+    this.route.navigate(['/bang', id])
   }
 }

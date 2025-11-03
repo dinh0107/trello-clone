@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectorRef, Injectable } from '@angular/core';
+import { ChangeDetectorRef, Injectable, signal } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Background, Board, User } from '../core/user';
 
@@ -8,9 +8,10 @@ import { Background, Board, User } from '../core/user';
 })
 export class BoadServiceService {
 
-  private boardSubject = new BehaviorSubject<Board[]>([])
-  board$ = this.boardSubject.asObservable()
+  // private boardSubject = new BehaviorSubject<Board[]>([])
+  // board$ = this.boardSubject.asObservable()
 
+  boards = signal<Board[]>([])
 
   private userSubject = new BehaviorSubject<User[]>([])
   user$ = this.userSubject.asObservable()
@@ -22,9 +23,8 @@ export class BoadServiceService {
 
   getBoard(): void {
     this.http.get<Board[]>(`${this.url}boards/my`, { withCredentials: true }).subscribe({
-      next: data => {
-        this.boardSubject.next(data);
-      }
+      next: data => this.boards.set(data),
+      error: err => console.error('Lỗi tải boards:', err)
     })
   }
 
@@ -39,10 +39,10 @@ export class BoadServiceService {
     return this.http.post(`${this.url}boards/create`, body, { withCredentials: true });
   }
 
-  addBoardToState(newBoard: Board) {
-    const current = this.boardSubject.value;
-    this.boardSubject.next([...current, newBoard])
-  }
+  // addBoardToState(newBoard: Board) {
+  //   const current = this.boardSubject.value;
+  //   this.boardSubject.next([...current, newBoard])
+  // }
 
   getUser(keyWords: string): Observable<User[]> {
     return this.http.get<User[]>(`${this.url}boards/search?keyword=${keyWords}`, { withCredentials: true })

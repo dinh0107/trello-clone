@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { Board, Cards, List, User } from 'src/app/core/user';
 
@@ -13,8 +13,11 @@ export class JobService {
   private listSubject = new BehaviorSubject<List[]>([])
   list$ = this.listSubject.asObservable()
 
-  private listCardSubject = new BehaviorSubject<Map<number, Cards[]>>(new Map())
-  card$ = this.listCardSubject.asObservable()
+  // private listCardSubject = new BehaviorSubject<Map<number, Cards[]>>(new Map())
+  // card$ = this.listCardSubject.asObservable()
+
+  cards = signal<Map<number, Cards[]>>(new Map)
+
 
   constructor(private http: HttpClient) { }
 
@@ -50,24 +53,15 @@ export class JobService {
   addCardToList(body: any): Observable<any> {
     return this.http.post(`${this.url}cards/add/`, body, { withCredentials: true })
   }
-  getCardByList(id: number): Observable<Cards[]> {
-    return this.http.get<Cards[]>(`${this.url}cards/list/${id}`, { withCredentials: true }).pipe(
-      map(card => card.map(a => ({
-        ...a, Id: a.Id, Title: a.Title, Sort: a.Sort, CardStatus: a.CardStatus
-      }))), tap(cards => {
-        const currentCard = new Map(this.listCardSubject.value);
-        currentCard.set(id, cards);
-        this.listCardSubject.next(currentCard);
+  getCardByList(id: number) {
+    return this.http.get<Cards[]>(`${this.url}cards/list/${id}`, { withCredentials: true })
+      .subscribe(cards => {
+        const newMap = new Map(this.cards())
+        newMap.set(id, cards)
+        this.cards.set(newMap)
       })
-    )
   }
-  addStateToCard(newCard: Cards, listId: number) {
-    const currentCard = new Map(this.listCardSubject.value)
-    const oldList = currentCard.get(listId) || [];
-    const updatedList = [...oldList, newCard]
-    currentCard.set(listId, updatedList)
-    this.listCardSubject.next(currentCard)
-  }
+
 
   moveCard(body: any): Observable<any> {
     return this.http.put(`${this.url}cards/move/`, body, { withCredentials: true })
@@ -83,5 +77,19 @@ export class JobService {
 
   descriptionCard(data: any): Observable<any> {
     return this.http.put(`${this.url}cards/description-card`, data, { withCredentials: true })
+  }
+
+  deleteCad(id: number, listId: number): Observable<any> {
+    return this.http.delete(`${this.url}cards/delete-card/${id}`, { withCredentials: true }).pipe(
+      tap(() => {
+        this.cards.update(prev => {
+          const newMap = new Map(prev) || [];
+          const list = newMap.get(listId) || []
+          const filtered = list.filter(a => a.Id != id)
+          newMap.set(listId, filtered)
+          return newMap
+        })
+      })
+    )
   }
 }

@@ -72,10 +72,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "trello-clone:build:production"
+              "buildTarget": "trello-clone:build:production"
             },
             "development": {
-              "browserTarget": "trello-clone:build:development"
+              "buildTarget": "trello-clone:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +83,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "trello-clone:build"
+            "buildTarget": "trello-clone:build"
           }
         },
         "test": {

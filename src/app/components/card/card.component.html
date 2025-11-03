@@ -1,8 +1,9 @@
 <div cdkDropList [cdkDropListData]="cards" [id]="'list-' + id" [cdkDropListConnectedTo]="connectedLists"
     (cdkDropListDropped)="dropCard($event)">
-    <div *ngFor="let card of cards" cdkDrag class="bg-[#242528] rounded w-full p-2 mb-2 block cursor-pointer relative"
-        [id]="'card-' + card.Id" (contextmenu)="openMenu($event, card)" (click)="openCard(card)">
-        <span class="text-white text-[12px]">{{card.Title}}</span>
+    @for (card of cards; track card.Id) {
+    <div cdkDrag class="bg-[#242528] rounded w-full p-2 mb-2 block cursor-pointer relative" [id]="'card-' + card.Id"
+        (contextmenu)="openMenu($event, card)">
+        <span class="text-white text-[12px] block" (click)="openCard(card)">{{card.Title}}</span>
         <div *ngIf="showMenu && selectedCard?.Id === card.Id"
             class="context-menu absolute z-[999]  shadow-2xl right-[-190px] top-0">
             <div class="menu-container p-1 w-[180px] text-sm text-gray-200">
@@ -16,6 +17,9 @@
             </div>
         </div>
     </div>
+    }
+
     <div *ngIf="cards.length === 0" class="empty-placeholder  py-1 rounded">
     </div>
 </div>
+<p-toast position="bottom-right" key="br"></p-toast>

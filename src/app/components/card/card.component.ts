@@ -6,6 +6,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { MenuStateService } from 'src/app/core/menu-state.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ViewCardComponent } from '../view-card/view-card.component';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-card',
@@ -13,25 +14,21 @@ import { ViewCardComponent } from '../view-card/view-card.component';
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
+
   @Input() id!: number
   @Input() connectedLists: string[] = [];
   @Input() listId!: number;
+  @Input() boardId!: number;
 
-  cards: Cards[] = [];
   selectedCard: Cards | null = null;
   private sub!: Subscription;
   showMenu = false;
   menuPosition = { x: 0, y: 0 };
-  constructor(private service: JobService, private menuState: MenuStateService, private dialog: MatDialog) { }
+  constructor(private service: JobService, private menuState: MenuStateService, private dialog: MatDialog, private messageService: MessageService) { }
 
   ngOnInit(): void {
-    this.service.getCardByList(this.id).subscribe(cards => {
-      this.cards = cards
-    })
-    this.service.card$.pipe(map(card => card.get(this.id) || []))
-      .subscribe(cards => {
-        this.cards = cards
-      })
+    this.service.getCardByList(this.id)
+
     this.sub = this.menuState.openListId$.subscribe(openListId => {
       if (openListId !== this.id) {
         this.showMenu = false;
@@ -40,7 +37,9 @@ export class CardComponent implements OnInit {
     });
   }
 
-
+  get cards() {
+    return this.service.cards().get(this.id) || []
+  }
 
   openMenu(event: MouseEvent, card: Cards) {
     event.preventDefault();
@@ -104,17 +103,16 @@ export class CardComponent implements OnInit {
   }
 
 
-
-
   openCard(card: Cards) {
     this.service.viewCard(card.Id).subscribe({
       next: (value) => {
+        console.log(value)
         const diaLogRef = this.dialog.open(ViewCardComponent, {
           width: '60%',
           position: {
             top: '50px',
           },
-          data: value,
+          data: { ...value, boardId: this.boardId },
         })
         diaLogRef.afterClosed().subscribe(() => {
           console.log("Đóng")
@@ -133,6 +131,15 @@ export class CardComponent implements OnInit {
   moveCard(card: any) { console.log('Di chuyển', card); this.showMenu = false; }
   copyCard(card: any) { console.log('Sao chép', card); this.showMenu = false; }
   copyLink(card: any) { console.log('Sao chép link', card); this.showMenu = false; }
-  deleteCard(card: any) { console.log('Lưu trữ', card); this.showMenu = false; }
-
+  deleteCard(card: Cards) {
+    this.service.deleteCad(card.Id, card.ListId).subscribe({
+      next: res => {
+        if (res.Success) {
+          this.messageService.add({ severity: 'success', summary: 'Thành công', detail: "Xóa thành công", key: 'br', life: 3000 })
+        }
+      }
+    }
+    )
+    this.showMenu = false;
+  }
 }

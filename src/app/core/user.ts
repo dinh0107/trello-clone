@@ -34,7 +34,9 @@ export interface Cards {
     Description: string,
     CardStatus: CardStatus,
     ListId: number,
-    CreatedBy: CreatedBy
+    CreatedBy: CreatedBy,
+    CreatedAt: Date;
+    boardId: number
 }
 export interface CardStatus {
     Name: string,

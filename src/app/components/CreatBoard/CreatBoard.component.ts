@@ -45,7 +45,7 @@ export class CreatBoardComponent implements OnInit {
       next: res => {
         if (res.Success) {
           this.close()
-          this.serviceBoad.addBoardToState(res.data)
+          this.serviceBoad.boards.update(a => [...res.data, ...a])
           Swal.fire({
             toast: true,
             position: 'top-end',

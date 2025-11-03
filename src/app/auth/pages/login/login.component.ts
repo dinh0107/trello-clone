@@ -30,7 +30,9 @@ export class LoginComponent {
     const { email, password } = this.form.value
     this.authService.login(email, password).subscribe({
       next: (res) => {
-        this.router.navigate(['/'])
+        this.authService.checkAuth(true).subscribe(isAuth => {
+          if (isAuth) this.router.navigateByUrl('/')
+        })
       },
       error: err => {
         console.log(err)

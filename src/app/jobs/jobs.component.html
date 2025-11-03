@@ -27,7 +27,7 @@
                         (blur)="changeNameList( $event ,list.Id , list)"
                         class="text-white outline-none border-none bg-transparent font-medium block w-full rounded p-1 outline-1 outline-offset-2 outline-blue-500  ">
                 </div>
-                <app-card [id]="list.Id" [connectedLists]="connectedLists"></app-card>
+                <app-card [id]="list.Id" [boardId]="id" [connectedLists]="connectedLists"></app-card>
                 <div class="text-white rounded flex items-center p-1.5 bg-[#979797b3] cursor-pointer mt-2"
                     *ngIf="!list.IsOpen" (click)="list.IsOpen = true">
                     <mat-icon class="text-[20px]">add</mat-icon>
