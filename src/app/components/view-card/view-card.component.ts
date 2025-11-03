@@ -38,8 +38,6 @@ export class ViewCardComponent implements OnInit {
   isEditing = false
   isEditor = false
 
-
-
   filterUser(event: Event) {
     const input = (event?.target as HTMLInputElement).value;
     this.search$.next(input)
