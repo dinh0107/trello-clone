@@ -13,10 +13,9 @@ export class JobService {
   private listSubject = new BehaviorSubject<List[]>([])
   list$ = this.listSubject.asObservable()
 
-  // private listCardSubject = new BehaviorSubject<Map<number, Cards[]>>(new Map())
-  // card$ = this.listCardSubject.asObservable()
-
   cards = signal<Map<number, Cards[]>>(new Map)
+
+  userByCards = signal<Map<number, User[]>>(new Map)
 
 
   constructor(private http: HttpClient) { }
@@ -53,6 +52,7 @@ export class JobService {
   addCardToList(body: any): Observable<any> {
     return this.http.post(`${this.url}cards/add/`, body, { withCredentials: true })
   }
+  
   getCardByList(id: number) {
     return this.http.get<Cards[]>(`${this.url}cards/list/${id}`, { withCredentials: true })
       .subscribe(cards => {
@@ -63,6 +63,31 @@ export class JobService {
   }
 
 
+  getUserByCard(id: number): Observable<User[]> {
+    return this.http.get<{Data: User[]}>(`${this.url}cards/${id}/users`, {withCredentials:true}).pipe(
+      map(res => res.Data)
+    )
+  }
+
+  setUserByCard(id : number, users: User[]) {
+    const curent = this.userByCards();
+    const updated = new Map(curent);
+    updated.set(id, users);
+    this.userByCards.set(updated);
+  }
+
+  appendUserToCard(id: number , user: User) {
+    const curent = this.userByCards();
+    const updated = new Map(curent);
+    const userExiting = updated.get(id) || [];
+
+    const exit = userExiting.find(a => a.Id === user.Id);
+    if(!exit){
+      updated.set(id , [...userExiting, user]);
+      this.userByCards.set(updated);
+    }
+  }
+
   moveCard(body: any): Observable<any> {
     return this.http.put(`${this.url}cards/move/`, body, { withCredentials: true })
   }
@@ -72,7 +97,12 @@ export class JobService {
   }
 
   getUserBoard(id: number): Observable<User[]> {
-    return this.http.get<User[]>(`${this.url}boards/${id}/members`, { withCredentials: true })
+    return this.http.get<any[]>(`${this.url}boards/${id}/members`, { withCredentials: true }).pipe(
+      map(a => a.map(user => ({
+        ...user,
+        Id: user.UserId
+      })))
+    )
   }
 
   descriptionCard(data: any): Observable<any> {
@@ -92,4 +122,9 @@ export class JobService {
       })
     )
   }
-}
+  addUserToCard(body: any) {
+    return this.http.post(`${this.url}cards/add-user`, body, { withCredentials: true }).pipe(
+      map((res: any) => res.Data.User)
+    )
+  }
+} 

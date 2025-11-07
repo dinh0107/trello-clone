@@ -1,0 +1,15 @@
+<div class="rounded  w-[300px]">
+    <input type="text" placeholder="Tìm kiếm các thành viên" (input)="filterUser($event)" pInputText
+        class="block mt-3 p-1.5 bg-transparent w-full border border-[#BFC1C4] rounded text-[#BFC1C4] text-[12px]">
+    <span class="text-left font-bold block mt-3 text-[#BFC1C4] text-[12px] ">Thành viên của
+        bảng</span>
+    @for (item of users; track $index) {
+    <div class="flex gap-1.5 items-center  hover:bg-[#2e3035] p-2 cursor-pointer" (click)="addUserToCardFn(item)">
+        <p-avatar [image]="item.AvatarUrl || 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png'" shape="circle"
+            ngClass="h-[32px]" />
+        <div class="text-[13px] font-light  ">
+            {{item.FullName}}
+        </div>
+    </div>
+    }
+</div>

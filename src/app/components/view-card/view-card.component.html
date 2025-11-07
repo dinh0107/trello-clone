@@ -24,34 +24,36 @@
                     <span class="pi pi-check text-[#BFC1C4] cursor-pointer"></span>
                     <span class="text-[#BFC1C4]">Việc cần làm</span>
                 </button>
+                @if(userOfCard().length == 0){
                 <button type="button" (click)="mem.toggle($event)"
                     class="flex items-center justify-center w-fit px-2 gap-2 py-1.5 text-[12px] font-medium bg-transparent text-[#BFC1C4] border border-[#BFC1C4]  hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
                     <span class="pi pi-user-plus text-[#BFC1C4] cursor-pointer"></span>
                     <span class="text-[#BFC1C4]">Thành viên</span>
-                    <p-overlayPanel #mem styleClass="p-2 bg-[#242528] rounded-md p-3 pr-8 text-[#BFC1C4] w-[360px]">
-                        <div class="rounded  w-[300px]">
-                            <span class="block text-center text[-14px] text-[#BFC1C4]">Thành viên</span>
-                            <input type="text" placeholder="Tìm kiếm các thành viên" (input)="filterUser($event)"
-                                pInputText
-                                class="block mt-3 p-1.5 bg-transparent w-full border border-[#BFC1C4] rounded text-[#BFC1C4] text-[12px]">
-                            <span class="text-left font-bold block mt-3 text-[#BFC1C4] text-[12px] ">Thành viên của
-                                bảng</span>
-                            @for (item of users; track $index) {
-                            <div class="flex gap-2 items-center mt-3 hover:bg-[#2e3035] p-2 cursor-pointer">
-                                <p-avatar
-                                    [image]="item.AvatarUrl || 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png'"
-                                    shape="circle" ngClass="h-[32px]" />
-                                <div class="text-[13px] font-light  ">
-                                    {{item.FullName}}
-                                </div>
-                            </div>
-                            }
-
-                        </div>
+                    <p-overlayPanel #mem styleClass="bg-[#242528] text-[#BFC1C4]">
+                        <app-user-form [boardId]="data.boardId"></app-user-form>
                     </p-overlayPanel>
                 </button>
+                }
+
             </div>
             <div class="mt-4 text-sm text-gray-300">
+                @if (userOfCard().length > 0) {
+                <span class="flex items-center gap-1 text-[15px] font-bold text-[#BFC1C4]">
+                    Thành viên
+                </span>
+                <div class="flex gap-1 py-2">
+                    <p-avatar [image]="user.AvatarUrl || 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png'"
+                        shape="circle" *ngFor="let user of userOfCard()" />
+                    <div>
+                        <p-avatar icon="pi pi-plus" shape="circle" class="cursor-pointer"
+                            [style]="{ 'background-color': '#ece9fc', color: '#2a1261' }"
+                            (click)="mem.toggle($event)" />
+                        <p-overlayPanel #mem styleClass="bg-[#242528] text-[#BFC1C4] ">
+                            <app-user-form [boardId]="data.boardId"></app-user-form>
+                        </p-overlayPanel>
+                    </div>
+                </div>
+                }
                 <div class="flex items-center justify-between mb-3">
                     <span class="flex items-center gap-1 text-[15px] font-bold text-[#BFC1C4]">
                         <mat-icon class="text-[20px] text-[#BFC1C4] cursor-pointer">sort</mat-icon> Mô

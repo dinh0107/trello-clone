@@ -4,6 +4,7 @@
     <div cdkDrag class="bg-[#242528] rounded w-full p-2 mb-2 block cursor-pointer relative" [id]="'card-' + card.Id"
         (contextmenu)="openMenu($event, card)">
         <span class="text-white text-[12px] block" (click)="openCard(card)">{{card.Title}}</span>
+        <app-list-face [cardId]="card.Id"></app-list-face>
         <div *ngIf="showMenu && selectedCard?.Id === card.Id"
             class="context-menu absolute z-[999]  shadow-2xl right-[-190px] top-0">
             <div class="menu-container p-1 w-[180px] text-sm text-gray-200">

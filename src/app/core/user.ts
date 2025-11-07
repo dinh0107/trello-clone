@@ -5,7 +5,8 @@ export interface User {
     AvatarUrl: string,
     BirthDate: string,
     Phone: string,
-    IsOwner: boolean
+    IsOwner: boolean,
+    isSelected: boolean,
 }
 
 

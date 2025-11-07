@@ -1,0 +1,4 @@
+<div class="flex gap-1 justify-end mt-2" *ngIf="userOfCard().length > 0">
+    <p-avatar [image]="user.AvatarUrl || 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png'" styleClass="w-6 h-6"
+        shape="circle" *ngFor="let user of userOfCard()" />
+</div>

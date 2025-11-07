@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { LoadingService } from 'src/app/core/loading.service';
 
 @Component({
@@ -8,7 +8,14 @@ import { LoadingService } from 'src/app/core/loading.service';
   styleUrls: ['./loading.component.css'],
 })
 export class LoadingComponent {
+  constructor(
+    public loadingService: LoadingService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
-  constructor(public loadingService: LoadingService) { }
-
+  ngOnInit() {
+    this.loadingService.loading$.subscribe(() => {
+      this.cdr.detectChanges();
+    });
+  }
 }

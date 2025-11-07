@@ -1,7 +1,10 @@
 <div [ngStyle]="{'background-image':'url(' + boad?.BackgroundImage + ')'}" class="h-screen w-screen bg-cover">
     <div class=" w-full bg-[#00000056]">
         <div class="px-5 mx-auto flex justify-between items-center">
-            <div class="text-[16px] font-medium text-white py-3">{{boad?.Name}}</div>
+            <div class="flex items-center gap-3">
+                <a href="/"> <i class="pi pi-chevron-left text-[20px] text-white"></i></a>
+                <div class="text-[16px] font-medium text-white py-3">{{boad?.Name}}</div>
+            </div>
             <div class="flex items-center gap-3">
                 <p-avatarGroup>
                     <p-avatar [image]="user.AvatarUrl || 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png'"
