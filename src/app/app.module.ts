@@ -20,6 +20,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgxEditorModule } from 'ngx-editor';
+import { AuthInterceptor } from './auth/service/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -46,15 +47,20 @@ import { NgxEditorModule } from 'ngx-editor';
     MatNativeDateModule,
     FormsModule,
     MatIconModule,
-    NgxEditorModule
+    NgxEditorModule,
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
       useClass: LoadingInterceptor,
-      multi: true
-    }
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
