@@ -1,18 +1,19 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
-import { User } from 'src/app/core/user';
-import { JobService } from 'src/app/jobs/service/job.service';
+import { Component, OnInit, Input } from "@angular/core";
+import { debounceTime, distinctUntilChanged, Subject } from "rxjs";
+import { User } from "src/app/core/user";
+import { JobService } from "src/app/jobs/service/job.service";
 
 @Component({
-  selector: 'app-user-form',
-  templateUrl: './user-form.component.html',
-  styleUrl: './user-form.component.scss',
+  selector: "app-user-form",
+  templateUrl: "./user-form.component.html",
+  styleUrl: "./user-form.component.scss",
 })
 export class UserFormComponent implements OnInit {
   private _user: User[] = [];
   users: User[] = [];
   @Input() boardId: number = 0;
-  keywords: string = '';
+  @Input() cardId: number = 0;
+  keywords: string = "";
   search$ = new Subject<string>();
 
   constructor(private service: JobService) {}
@@ -41,12 +42,12 @@ export class UserFormComponent implements OnInit {
   }
   addUserToCardFn(user: User) {
     const body = {
-      CardId: this.boardId,
+      CardId: this.cardId,
       UserId: user.Id,
     };
     this.service.addUserToCard(body).subscribe({
       next: (res) => {
-        this.service.appendUserToCard(this.boardId, res);
+        this.service.appendUserToCard(this.cardId, res);
       },
     });
   }

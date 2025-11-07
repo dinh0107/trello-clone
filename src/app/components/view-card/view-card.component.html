@@ -30,11 +30,10 @@
                     <span class="pi pi-user-plus text-[#BFC1C4] cursor-pointer"></span>
                     <span class="text-[#BFC1C4]">Thành viên</span>
                     <p-overlayPanel #mem styleClass="bg-[#242528] text-[#BFC1C4]">
-                        <app-user-form [boardId]="data.boardId"></app-user-form>
+                        <app-user-form [boardId]="data.boardId" [cardId]="data.Id"></app-user-form>
                     </p-overlayPanel>
                 </button>
                 }
-
             </div>
             <div class="mt-4 text-sm text-gray-300">
                 @if (userOfCard().length > 0) {
@@ -49,7 +48,7 @@
                             [style]="{ 'background-color': '#ece9fc', color: '#2a1261' }"
                             (click)="mem.toggle($event)" />
                         <p-overlayPanel #mem styleClass="bg-[#242528] text-[#BFC1C4] ">
-                            <app-user-form [boardId]="data.boardId"></app-user-form>
+                            <app-user-form [boardId]="data.boardId" [cardId]="data.Id"></app-user-form>
                         </p-overlayPanel>
                     </div>
                 </div>
